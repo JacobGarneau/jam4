@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class playerController : MonoBehaviour
     public CharacterController characterController;
     public GameObject taskPrompt;
     public float characterSpeed = 1f;
+    public GameObject scoreDisplay;
+    public int playerScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +38,14 @@ public class playerController : MonoBehaviour
         {
             doingTask = false;
             nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
+        }
+
+        if (Input.GetKeyUp("q") && doingTask)
+        {
+            playerScore++;
+            doingTask = false;
+            nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
+            scoreDisplay.gameObject.GetComponent<TMP_Text>().text = playerScore.ToString();
         }
     }
 
