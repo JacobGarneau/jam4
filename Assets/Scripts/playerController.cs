@@ -7,8 +7,9 @@ using TMPro;
 public class playerController : MonoBehaviour
 {
     private Vector3 playerVelocity;
-    private Collider nearbyTask = null;
-    private bool doingTask = false;
+
+    public Collider nearbyTask = null;
+    public bool doingTask = false;
 
     public CharacterController characterController;
     public GameObject taskPrompt;
@@ -38,14 +39,6 @@ public class playerController : MonoBehaviour
         {
             doingTask = false;
             nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
-        }
-
-        if (Input.GetKeyUp("q") && doingTask)
-        {
-            playerScore++;
-            doingTask = false;
-            nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
-            scoreDisplay.gameObject.GetComponent<TMP_Text>().text = playerScore.ToString();
         }
     }
 
