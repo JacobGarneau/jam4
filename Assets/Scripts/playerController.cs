@@ -15,7 +15,8 @@ public class playerController : MonoBehaviour
     public GameObject taskPrompt;
     public float characterSpeed = 1f;
     public GameObject scoreDisplay;
-    public int playerScore = 0;
+    public float playerScore = 0;
+    public float scoreObjective = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -31,15 +32,7 @@ public class playerController : MonoBehaviour
             moveCharacter();
         }
 
-        if (Input.GetKeyUp("e") && nearbyTask != null && !doingTask)
-        {
-            doingTask = true;
-            nearbyTask.GetComponent<taskStation>().taskUI.SetActive(true);
-        } else if (Input.GetKeyUp("e") && nearbyTask != null && doingTask)
-        {
-            doingTask = false;
-            nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
-        }
+        checkInputs();
     }
 
     void moveCharacter()
@@ -51,6 +44,20 @@ public class playerController : MonoBehaviour
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         characterController.Move(move * Time.deltaTime * characterSpeed);
+    }
+
+    void checkInputs()
+    {
+        if (Input.GetKeyUp("e") && nearbyTask != null && !doingTask && !nearbyTask.GetComponent<taskStation>().taskCompleted)
+        {
+            doingTask = true;
+            nearbyTask.GetComponent<taskStation>().taskUI.SetActive(true);
+        }
+        else if (Input.GetKeyUp("e") && nearbyTask != null && doingTask)
+        {
+            doingTask = false;
+            nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
