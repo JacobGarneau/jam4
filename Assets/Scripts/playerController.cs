@@ -13,6 +13,7 @@ public class playerController : MonoBehaviour
 
     public CharacterController characterController;
     public SpriteRenderer sprite;
+    public Animator animator;
     public GameObject taskPrompt;
     public float characterSpeed = 1f;
     public GameObject scoreDisplay;
@@ -45,6 +46,14 @@ public class playerController : MonoBehaviour
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         characterController.Move(move * Time.deltaTime * characterSpeed);
+
+        if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        {
+            animator.SetBool("walking", false);
+        } else
+        {
+            animator.SetBool("walking", true);
+        }
 
         if (Input.GetAxis("Horizontal") < 0)
         {

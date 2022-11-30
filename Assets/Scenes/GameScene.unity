@@ -2775,6 +2775,8 @@ MonoBehaviour:
   nearbyTask: {fileID: 0}
   doingTask: 0
   characterController: {fileID: 1174876592}
+  sprite: {fileID: 1174876595}
+  animator: {fileID: 1174876594}
   taskPrompt: {fileID: 155958817}
   characterSpeed: 8
   scoreDisplay: {fileID: 2031983010}
