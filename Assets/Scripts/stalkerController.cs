@@ -17,6 +17,8 @@ public class stalkerController : MonoBehaviour
     void Start()
     {
         targetTransform = target.GetComponent<Transform>();
+
+        
     }
 
     // Update is called once per frame
@@ -25,7 +27,15 @@ public class stalkerController : MonoBehaviour
         navigator.SetDestination(targetTransform.position);
         transform.localRotation = Quaternion.Euler(new Vector3(90, transform.localRotation.y, transform.localRotation.z));
 
-        Debug.Log(transform.forward);
+        Vector3 normalizedMovement = navigator.desiredVelocity.normalized;
+        Vector3 rightVector = Vector3.Project(normalizedMovement, transform.right);
 
+        if (rightVector.x < 0) {
+            sprite.flipX = true;
+        }
+        else if(rightVector.x > 0)
+        {
+            sprite.flipX = false;
+        }
     }
 }
