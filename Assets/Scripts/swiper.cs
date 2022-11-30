@@ -12,6 +12,7 @@ public class swiper : MonoBehaviour
     public GameObject player;
     public GameObject progressBar;
     public string key;
+    public AudioSource sound;
 
     private float directionalSpeed = 1f;
     private float swiperBoxWidth;
@@ -62,6 +63,8 @@ public class swiper : MonoBehaviour
             {
                 playerScript.playerScore++;
                 playerScript.nearbyTask.GetComponent<taskStation>().taskCompleted = true;
+
+                sound.Play();
 
                 if (playerScript.playerScore >= playerScript.scoreObjective)
                 {
