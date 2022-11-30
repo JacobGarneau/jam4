@@ -12,6 +12,7 @@ public class playerController : MonoBehaviour
     public bool doingTask = false;
 
     public CharacterController characterController;
+    public SpriteRenderer sprite;
     public GameObject taskPrompt;
     public float characterSpeed = 1f;
     public GameObject scoreDisplay;
@@ -44,6 +45,14 @@ public class playerController : MonoBehaviour
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         characterController.Move(move * Time.deltaTime * characterSpeed);
+
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            sprite.flipX = true;
+        } else if (Input.GetAxis("Horizontal") > 0)
+        {
+            sprite.flipX = false;
+        }
     }
 
     void checkInputs()
