@@ -23,14 +23,20 @@ public class swiper : MonoBehaviour
     {
         swiperBoxWidth = swiperBox.GetComponent<RectTransform>().rect.width / 2;
         playerScript = player.GetComponent<playerController>();
+        directionalSpeed = swiperSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveSwiper();
-
         handleInputs();
+    }
+
+    private void FixedUpdate()
+    {
+
+
+        moveSwiper();
     }
 
     void moveSwiper()
@@ -55,7 +61,6 @@ public class swiper : MonoBehaviour
             if (colliderTag == "Success")
             {
                 playerScript.playerScore++;
-                playerScript.doingTask = false;
                 playerScript.nearbyTask.GetComponent<taskStation>().taskCompleted = true;
 
                 if (playerScript.playerScore >= playerScript.scoreObjective)
@@ -69,6 +74,7 @@ public class swiper : MonoBehaviour
                 }
             }
 
+            playerScript.doingTask = false;
             playerScript.nearbyTask.GetComponent<taskStation>().taskUI.SetActive(false);
         }
     }

@@ -15,15 +15,16 @@ public class playerController : MonoBehaviour
     public SpriteRenderer sprite;
     public Animator animator;
     public GameObject taskPrompt;
+    public GameObject promptBackground;
     public float characterSpeed = 1f;
     public GameObject scoreDisplay;
     public float playerScore = 0;
-    public float scoreObjective = 3;
+    public float scoreObjective = 4;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerScore = 0;
     }
 
     // Update is called once per frame
@@ -92,12 +93,14 @@ public class playerController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         taskPrompt.SetActive(true);
+        promptBackground.SetActive(true);
         nearbyTask = other;
     }
 
     void OnTriggerExit(Collider other)
     {
         taskPrompt.SetActive(false);
+        promptBackground.SetActive(false);
         nearbyTask = null;
     }
 }

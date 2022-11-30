@@ -8,6 +8,7 @@ public class stalkerController : MonoBehaviour
     public GameObject target;
     public float stalkerSpeed = 1f;
     public NavMeshAgent navigator;
+    public SpriteRenderer sprite;
 
     private Transform targetTransform;
     private Vector3 distanceFromTarget;
@@ -22,5 +23,9 @@ public class stalkerController : MonoBehaviour
     void Update()
     {
         navigator.SetDestination(targetTransform.position);
+        transform.localRotation = Quaternion.Euler(new Vector3(90, transform.localRotation.y, transform.localRotation.z));
+
+        Debug.Log(transform.forward);
+
     }
 }
