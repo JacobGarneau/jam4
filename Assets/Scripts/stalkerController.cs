@@ -9,16 +9,18 @@ public class stalkerController : MonoBehaviour
     public float stalkerSpeed = 1f;
     public NavMeshAgent navigator;
     public SpriteRenderer sprite;
+    public GameObject spawnpoints;
 
     private Transform targetTransform;
     private Vector3 distanceFromTarget;
+    private Transform spawnpointsTransform;
 
     // Start is called before the first frame update
     void Start()
     {
         targetTransform = target.GetComponent<Transform>();
 
-        
+        spawnpointsTransform = spawnpoints.GetComponent<Transform>();
     }
 
     // Update is called once per frame
