@@ -64,6 +64,10 @@ public class swiper : MonoBehaviour
                 playerScript.playerScore++;
                 playerScript.nearbyTask.GetComponent<taskStation>().taskCompleted = true;
 
+                Destroy(playerScript.nearbyTask.gameObject);
+                playerScript.taskPrompt.SetActive(false);
+                playerScript.promptBackground.SetActive(false);
+
                 sound.Play();
 
                 if (playerScript.playerScore >= playerScript.scoreObjective)

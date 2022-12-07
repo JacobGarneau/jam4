@@ -7,6 +7,8 @@ TagManager:
   - Stalker
   - Failure
   - Success
+  - Layer
+  - Sfx
   layers:
   - Default
   - TransparentFX

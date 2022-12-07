@@ -20,6 +20,7 @@ public class playerController : MonoBehaviour
     public GameObject scoreDisplay;
     public float playerScore = 0;
     public float scoreObjective = 4;
+    public AudioSource doorbell;
 
     // Start is called before the first frame update
     void Start()
@@ -92,15 +93,29 @@ public class playerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        taskPrompt.SetActive(true);
-        promptBackground.SetActive(true);
-        nearbyTask = other;
+        if (other.gameObject.tag == "Layer")
+        {
+            sprite.sortingOrder = other.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
+        }
+        else if (other.gameObject.tag == "Sfx")
+        {
+            doorbell.Play();
+        }
+        else
+        {
+            taskPrompt.SetActive(true);
+            promptBackground.SetActive(true);
+            nearbyTask = other;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        taskPrompt.SetActive(false);
-        promptBackground.SetActive(false);
-        nearbyTask = null;
+        if (other.gameObject.tag != "Layer")
+        {
+            taskPrompt.SetActive(false);
+            promptBackground.SetActive(false);
+            nearbyTask = null;
+        }
     }
 }
