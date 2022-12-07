@@ -33,28 +33,32 @@ public class stalkerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceFromTarget = Vector3.Distance(targetTransform.position, transform.position);
-
-        if (distanceFromTarget > maxDistance)
+        if (tag == "Stalker")
         {
-            Vector3 newSpawnPosition = spawnpointsTransform.GetChild(0).transform.position;
-            float newSpawnPositionDistance = Vector3.Distance(spawnpointsTransform.GetChild(0).transform.position, targetTransform.position);
+            distanceFromTarget = Vector3.Distance(targetTransform.position, transform.position);
 
-            for (int i = 0; i < spawnpointsTransform.childCount; i++)
+            if (distanceFromTarget > maxDistance)
             {
-                float spawnPositionDistance = Vector3.Distance(spawnpointsTransform.GetChild(i).transform.position, targetTransform.position);
-                if (spawnPositionDistance < newSpawnPositionDistance && spawnPositionDistance >= minSpawnDistance)
+                Vector3 newSpawnPosition = spawnpointsTransform.GetChild(0).transform.position;
+                float newSpawnPositionDistance = Vector3.Distance(spawnpointsTransform.GetChild(0).transform.position, targetTransform.position);
+
+                for (int i = 0; i < spawnpointsTransform.childCount; i++)
                 {
-                    newSpawnPositionDistance = spawnPositionDistance;
-                    newSpawnPosition = spawnpointsTransform.GetChild(i).transform.position;
+                    float spawnPositionDistance = Vector3.Distance(spawnpointsTransform.GetChild(i).transform.position, targetTransform.position);
+                    if (spawnPositionDistance < newSpawnPositionDistance && spawnPositionDistance >= minSpawnDistance)
+                    {
+                        newSpawnPositionDistance = spawnPositionDistance;
+                        newSpawnPosition = spawnpointsTransform.GetChild(i).transform.position;
+                    }
                 }
+
+                transform.position = new Vector3(newSpawnPosition.x, transform.position.y, newSpawnPosition.z);
             }
 
-            transform.position = new Vector3(newSpawnPosition.x, transform.position.y, newSpawnPosition.z);
+            byte opacity = (byte)(Mathf.Clamp(255 - (distanceFromTarget - 15) * 10, 0, 255));
+            shadowEffectImage.color = new Color32(0, 0, 0, opacity);
         }
-
-        byte opacity = (byte) (Mathf.Clamp(255 - (distanceFromTarget - 15) * 10, 0, 255));
-        shadowEffectImage.color = new Color32(0, 0, 0, opacity);
+        
 
         navigator.SetDestination(targetTransform.position);
         transform.localRotation = Quaternion.Euler(new Vector3(90, transform.localRotation.y, transform.localRotation.z));
